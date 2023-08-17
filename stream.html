@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delayed Video Playback</title>
+    <link href="vid.css" rel="stylesheet">
+</head>
+<body>
+    <video
+        id="my-video"
+        class="video-js"
+        controls
+        preload="auto"
+        width="640"
+        height="360"
+        data-setup='{"remainingTimeDisplay": false}'>
+        <source src="http://localhost/securevideoplayer/video.php?v=plaformguild" type="video/mp4">
+    </video>
+
+    <script src="jquery.js"></script>
+    <script src="vid.js"></script>
+    <script>
+        // const videoPlayer = videojs('my-video');
+        // const nigeriaTime = new Date().toLocaleString('en-US', { timeZone: 'Africa/Lagos' });
+        // const startTime = new Date(nigeriaTime);
+        // startTime.setHours(13); // 7:00 PM
+        // startTime.setMinutes(11); // 54 minutes
+        // const bufferTime = 120; // 2 minutes buffer
+
+        // // Calculate the initial playback position
+        // const currentTime = Math.floor((Date.now() - startTime) / 1000);
+        // const initialPlaybackPosition = Math.max(0, currentTime - bufferTime);
+
+        // videoPlayer.ready(function () {
+        //     // Set the initial playback position
+        //     videoPlayer.currentTime(initialPlaybackPosition);
+
+        //     // Start playing the video
+        //     videoPlayer.play();
+        // });
+
+        // // videoPlayer.on('timeupdate', function () {
+        // //     const currentTime = Math.floor((Date.now() - startTime) / 1000);
+        // //     if (videoPlayer.currentTime() < currentTime) {
+        // //         videoPlayer.currentTime(currentTime);
+        // //     }
+        // // });
+
+        // videoPlayer.on('pause', function () {
+        //     const currentTime = Math.floor((Date.now() - startTime) / 1000);
+        //     if (videoPlayer.currentTime() < currentTime || videoPlayer.currentTime() >= videoPlayer.duration() - 1) {
+        //         videoPlayer.play();
+        //     }
+        // });
+
+       // console.log(currentTime)
+    </script>
+</body>
+</html>
+
+
