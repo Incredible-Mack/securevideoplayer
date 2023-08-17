@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obfuscated Video Example</title>
+    <script src="disableContextMenu.js"></script>
+    <style>
+        .color{
+            color: rgba(31, 16, 0, 0.335);
+        }
+    </style>
+</head>
+<body>
+    <video  controls id="my-video" >
+        <!-- The video player will be filled in dynamically -->
+    </video>
+
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Make an AJAX request to get the obfuscated video URL
+            $.ajax({
+                url: 'get_video_url.php', // Replace with the actual URL to your PHP script
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        var obfuscatedVideoUrl = response.obfuscatedVideoUrl;
+
+                        // Update the video player source
+                        $('#my-video').attr('src', obfuscatedVideoUrl);
+                    } else {
+                        console.error('Failed to retrieve obfuscated video URL.');
+                    }
+                },
+                error: function() {
+                    console.error('AJAX request failed.');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

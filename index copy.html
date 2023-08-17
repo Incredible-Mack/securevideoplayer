@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delayed Video Playback</title>
+    <link href="vid.css" rel="stylesheet">
+    <script src="disableContextMenu.js"></script>
+    <script src="./vid.js"></script>
+</head>
+<body>
+    <video
+        id="my-video"
+        class="video-js"
+        controls
+        preload="auto"
+        width="640"
+        height="360"
+        >
+        <source src="http://localhost/securevideoplayer/esther.mp4" type="video/mp4">
+    </video>
+
+    <script src="jquery.js"></script>
+  
+
+    <!-- prevent download -->
+   
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  $.ajax({
+    url: 'get_video_url.php', // Replace with the actual URL to your PHP script
+    method: 'GET',
+    dataType: 'json',
+    success: function(response) {
+        if (response.success) {
+            var obfuscatedVideoUrl = response.obfuscatedVideoUrl;
+            var player = videojs('my-video'); // Initialize Video.js player
+            player.src({ type: 'video/mp4', src: obfuscatedVideoUrl });
+
+            // Play the video only if it's the appropriate time
+            setupVideoPlayback(player);
+        } else {
+            console.error('Failed to retrieve obfuscated video URL.');
+        }
+    },
+    error: function() {
+        console.error('AJAX request failed.');
+    }
+});
+
+const videoPlayer = videojs('my-video');
+        const nigeriaTime = new Date().toLocaleString('en-US', { timeZone: 'Africa/Lagos' });
+        const startTime = new Date(nigeriaTime);
+        startTime.setHours(10); // 7:00 PM
+        startTime.setMinutes(16); // 30 minutes
+
+        // Calculate the total play time (time difference + 2 minutes buffer)
+        const totalPlayTime = Math.floor((Date.now() - startTime) / 1000) + 120;
+
+        videoPlayer.ready(function () {
+            videoPlayer.currentTime(totalPlayTime);
+            videoPlayer.play();
+        });
+
+        videoPlayer.on('seeking', function () {
+            // Allow seeking up to the total play time
+            const currentTime = Math.floor((Date.now() - startTime) / 1000) + 120;
+            if (videoPlayer.currentTime() > currentTime) {
+                videoPlayer.currentTime(currentTime);
+            }
+        });
+
+
+
+
+
+
+
+
+// function setupVideoPlayback(player) {
+//     const nigeriaTime = new Date().toLocaleString('en-US', { timeZone: 'Africa/Lagos' });
+//     const startTime = new Date(nigeriaTime);
+//     startTime.setHours(10); // 8:50 AM
+//     startTime.setMinutes(13); // 30 minutes
+
+//     // Calculate the total play time (time difference + 2 minutes buffer)
+//     const totalPlayTime = Math.floor((Date.now() - startTime) / 1000) + 120;
+
+//     player.ready(function () {
+//         player.currentTime(totalPlayTime);
+//         player.play();
+//     });
+
+//     player.on('seeking', function () {
+//         // Allow seeking within the total play time range
+//         const currentTime = Math.floor((Date.now() - startTime) / 1000) + 120;
+//         if (player.currentTime() < currentTime) {
+//             player.currentTime(currentTime);
+//         } else if (player.currentTime() > totalPlayTime) {
+//             player.currentTime(currentTime);
+//         }
+//     });
+// }
+ });
+
+
+        // if (currentTimeInSeconds >= 0 && currentTimeInSeconds <= totalPlayTime) {
+        //     player.ready(function() {
+        //         // Seek to the calculated play time and start playing
+        //         player.currentTime(totalPlayTime);
+        //         player.play();
+        //     });
+
+        //     player.on('seeking', function() {
+        //         const currentTime = Math.floor((Date.now() - startTime) / 1000) + 120;
+        //         if (player.currentTime() < currentTime) {
+        //             player.currentTime(currentTime);
+        //         }
+        //     });
+
+        //     player.on('pause', function() {
+        //         if (player.currentTime() < totalPlayTime && player.currentTime() < player.duration() - 1) {
+        //             player.play();
+        //         }
+        //     });
+        // } else {
+        //     // Video hasn't reached the starting time yet, so don't play
+        //     player.ready(function() {
+        //         // Seek to the start of the video and pause
+        //         player.currentTime(0);
+        //         player.pause();
+        //     });
+        // }
+   // }
+</script>
+</body>
+</html>
+
+
